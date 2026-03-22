@@ -1,0 +1,156 @@
+import React, { useMemo, useEffect } from 'react';
+import { Problem } from '../types';
+import { learningPaths, getDifficultyWeight } from '../data/learningPaths';
+import { initializeTreasureTiers } from '../../../services/experience-adapter';
+import PathOverview from './PathOverview';
+import PathDetail from './PathDetail';
+import './PathView.css';
+import './PathOverview.css';
+import './DuolingoPath.css';
+
+interface CompletionStats {
+  total: number;
+  completed: number;
+  percentage: number;
+}
+
+// 题目信息，用于重置时计算经验值
+interface ProblemInfo {
+  problemId: string;
+  difficulty: 'EASY' | 'MEDIUM' | 'HARD';
+}
+
+interface PathViewProps {
+  problems: Problem[];
+  currentLang: string;
+  t: (key: string) => string;
+  selectedTags: string[];
+  toggleTag: (tagSlug: string) => void;
+  handleAnimationClick: (
+    event: React.MouseEvent, 
+    questionId: string, 
+    hasAnimation: boolean,
+    title?: string,
+    t?: (key: string) => string,
+    pagesUrl?: string | null
+  ) => void;
+  isCompleted: (problemId: string) => boolean;
+  onToggleCompletion: (problemId: string) => Promise<void>;
+  getStatsForProblems: (problemIds: string[]) => CompletionStats;
+  // 新增：路由相关props
+  selectedPathId?: string;
+  onPathClick: (pathId: string) => void;
+  onBackToOverview: () => void;
+  // 新增：重置路径进度
+  onResetPathProgress?: (pathId: string, problems: ProblemInfo[]) => Promise<void>;
+  // 新增：返回时需要滚动到的路径ID
+  scrollToPathId?: string;
+}
+
+const PathView: React.FC<PathViewProps> = ({
+  problems,
+  currentLang,
+  t,
+  selectedTags,
+  toggleTag,
+  handleAnimationClick,
+  isCompleted,
+  onToggleCompletion,
+  getStatsForProblems,
+  selectedPathId,
+  onPathClick,
+  onBackToOverview,
+  onResetPathProgress,
+  scrollToPathId
+}) => {
+  // 按学习路径分组题目
+  const pathsWithProblems = useMemo(() => {
+    return learningPaths.map(path => {
+      // 筛选属于该路径的题目
+      const pathProblems = problems.filter(problem => 
+        problem.category && path.categories.includes(problem.category)
+      );
+      
+      // 按难度排序
+      const sortedProblems = [...pathProblems].sort((a, b) => {
+        const weightA = getDifficultyWeight(a.difficulty);
+        const weightB = getDifficultyWeight(b.difficulty);
+        if (weightA !== weightB) return weightA - weightB;
+        // 同难度按题号排序
+        return parseInt(a.questionFrontendId) - parseInt(b.questionFrontendId);
+      });
+
+      // 统计各难度数量
+      const stats = {
+        total: sortedProblems.length,
+        easy: sortedProblems.filter(p => p.difficulty === 'EASY').length,
+        medium: sortedProblems.filter(p => p.difficulty === 'MEDIUM').length,
+        hard: sortedProblems.filter(p => p.difficulty === 'HARD').length,
+        hasAnimation: sortedProblems.filter(p => p.hasAnimation).length
+      };
+
+      return {
+        path,
+        problems: sortedProblems,
+        stats
+      };
+    }).filter(item => item.problems.length > 0); // 只显示有题目的路径
+  }, [problems]);
+
+  // Initialize treasure tiers when paths are loaded
+  useEffect(() => {
+    if (pathsWithProblems.length > 0) {
+      // Collect all treasure IDs from all paths
+      const treasureIds: string[] = [];
+      pathsWithProblems.forEach(({ path }) => {
+        // Generate treasure IDs for this path (assuming 3-4 treasures per path)
+        // Format: path-{pathId}-treasure-{index}
+        for (let i = 0; i < 4; i++) {
+          treasureIds.push(`path-${path.id}-treasure-${i}`);
+        }
+      });
+      
+      // Initialize treasure tiers
+      if (treasureIds.length > 0) {
+        initializeTreasureTiers(treasureIds);
+      }
+    }
+  }, [pathsWithProblems]);
+
+  // 如果URL中有路径ID，显示详情视图
+  if (selectedPathId) {
+    const selectedPathData = pathsWithProblems.find(item => item.path.id === selectedPathId);
+    if (selectedPathData) {
+      return (
+        <PathDetail
+          path={selectedPathData.path}
+          problems={selectedPathData.problems}
+          stats={selectedPathData.stats}
+          currentLang={currentLang}
+          t={t}
+          selectedTags={selectedTags}
+          toggleTag={toggleTag}
+          handleAnimationClick={handleAnimationClick}
+          onBack={onBackToOverview}
+          isCompleted={isCompleted}
+          onToggleCompletion={onToggleCompletion}
+          getStatsForProblems={getStatsForProblems}
+          onResetPathProgress={onResetPathProgress}
+        />
+      );
+    }
+  }
+
+  // 显示路径概览 - 多邻国风格
+  return (
+    <PathOverview
+      pathsWithProblems={pathsWithProblems}
+      currentLang={currentLang}
+      onPathClick={onPathClick}
+      getStatsForProblems={getStatsForProblems}
+      scrollToPathId={scrollToPathId}
+    />
+  );
+};
+
+export default PathView;

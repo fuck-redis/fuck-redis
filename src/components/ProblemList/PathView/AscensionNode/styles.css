@@ -1,0 +1,916 @@
+/* 飞升节点容器 */
+.ascension-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  padding-top: 50px; /* 为标签留出空间 */
+}
+
+.ascension-node:hover {
+  transform: scale(1.05);
+}
+
+/* 主节点 */
+.ascension-main {
+  position: relative;
+  width: 140px;
+  height: 140px;
+}
+
+/* 进度环 */
+.ascension-progress-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+  z-index: 1;
+}
+
+.ascension-progress-ring .progress-bg {
+  stroke: #e8e8e8;
+}
+
+.ascension-progress-ring .progress-fill {
+  transition: stroke-dasharray 0.5s ease;
+}
+
+/* 节点内容 - 3D立体效果 */
+.ascension-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: all 0.15s ease;
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.1),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.05);
+  border: 3px solid #e5e5e5;
+}
+
+/* 3D底座效果 - 简化版 */
+.ascension-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  background: #f5f5f5;
+  transform: translateY(4px);
+  z-index: -1;
+}
+
+.ascension-node:hover .ascension-content {
+  transform: translate(-50%, -52%);
+}
+
+.ascension-node:hover .ascension-content::before {
+  transform: translateY(6px);
+}
+
+.ascension-logo {
+  font-size: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 飞升光效 */
+.ascension-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 140px;
+  height: 140px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.6) 0%, transparent 70%);
+  animation: ascensionGlow 2s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes ascensionGlow {
+  0%, 100% {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.3);
+  }
+}
+
+/* 节点信息卡片 */
+.ascension-info {
+  margin-top: 16px;
+  text-align: center;
+  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+  padding: 14px 20px;
+  border-radius: 10px;
+  min-width: 150px;
+  box-shadow: 
+    0 4px 0 #fcd34d,
+    0 6px 16px rgba(251, 191, 36, 0.2);
+  border: 2px solid #fbbf24;
+  transition: all 0.15s ease;
+}
+
+.ascension-node:hover .ascension-info {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 6px 0 #fcd34d,
+    0 8px 20px rgba(251, 191, 36, 0.25);
+}
+
+.ascension-company-name {
+  font-size: 18px;
+  font-weight: 800;
+  color: #92400e;
+  margin: 0 0 8px 0;
+}
+
+.ascension-progress-text {
+  font-size: 14px;
+  font-weight: 700;
+  color: #b45309;
+  margin-bottom: 4px;
+}
+
+.progress-completed {
+  color: #059669;
+  font-size: 16px;
+}
+
+.progress-separator {
+  color: #9ca3af;
+  margin: 0 2px;
+}
+
+.progress-total {
+  color: #6b7280;
+}
+
+.progress-label {
+  color: #9ca3af;
+}
+
+.ascension-percentage {
+  font-size: 24px;
+  font-weight: 900;
+  color: #d97706;
+  margin: 4px 0;
+}
+
+.ascension-salary {
+  font-size: 22px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #ffd700 0%, #ffb800 50%, #ffd700 100%);
+  background-size: 200% 100%;
+  padding: 10px 20px;
+  border-radius: 12px;
+  margin-top: 12px;
+  color: #7c2d12;
+  text-shadow: 0 1px 2px rgba(255, 215, 0, 0.5);
+  box-shadow: 
+    0 4px 0 #d97706,
+    0 6px 20px rgba(251, 191, 36, 0.4),
+    inset 0 2px 4px rgba(255, 255, 255, 0.4);
+  border: 2px solid #f59e0b;
+  position: relative;
+  overflow: hidden;
+  animation: salaryShine 2s ease-in-out infinite, salaryPulse 1.5s ease-in-out infinite;
+}
+
+.ascension-salary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: salaryGlitter 2s ease-in-out infinite;
+}
+
+.ascension-salary::after {
+  content: '✨';
+  position: absolute;
+  right: -5px;
+  top: -5px;
+  font-size: 16px;
+  animation: sparkle 1s ease-in-out infinite;
+}
+
+@keyframes salaryShine {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes salaryPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+}
+
+@keyframes salaryGlitter {
+  0% {
+    left: -100%;
+  }
+  50%, 100% {
+    left: 100%;
+  }
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.2) rotate(15deg);
+  }
+}
+
+.ascension-motivation {
+  font-size: 12px;
+  font-style: italic;
+  color: #78350f;
+  margin-top: 8px;
+  line-height: 1.4;
+  max-width: 180px;
+}
+
+.ascension-edit-hint {
+  font-size: 11px;
+  color: #9ca3af;
+  margin-top: 8px;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* 飞升标签 */
+.ascension-label {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, #ffd700 0%, #ffb800 100%);
+  color: #7c5800;
+  font-size: 14px;
+  font-weight: 800;
+  padding: 8px 20px;
+  border-radius: 6px;
+  white-space: nowrap;
+  box-shadow: 
+    0 4px 0 #e6a700,
+    0 6px 12px rgba(255, 184, 0, 0.3);
+  z-index: 20;
+  animation: labelFloat 3s ease-in-out infinite;
+}
+
+.ascension-label::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #e6a700;
+}
+
+@keyframes labelFloat {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-5px); }
+}
+
+/* ========== 编辑弹窗 ========== */
+.ascension-editor-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+@keyframes overlayFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.ascension-editor {
+  background: white;
+  border-radius: 8px;
+  width: 90vw;
+  max-width: 600px;
+  min-width: 500px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  box-shadow: 
+    0 8px 0 #e5e5e5,
+    0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes editorSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.editor-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 2px solid #f0f0f0;
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 10;
+  border-radius: 8px 8px 0 0;
+}
+
+.editor-header h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  color: #333;
+}
+
+.editor-close {
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: #f0f0f0;
+  border-radius: 50%;
+  font-size: 24px;
+  color: #666;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 20;
+  flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  pointer-events: auto;
+}
+
+.editor-close:hover,
+.editor-close:active {
+  background: #e0e0e0;
+  color: #333;
+}
+
+.editor-content {
+  padding: 20px 24px;
+}
+
+.editor-section {
+  margin-bottom: 20px;
+}
+
+.editor-section label {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.editor-section input[type="text"],
+.editor-section textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.15s ease;
+  box-sizing: border-box;
+}
+
+.editor-section input[type="text"]:focus,
+.editor-section textarea:focus {
+  outline: none;
+  border-color: #fbbf24;
+  box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.2);
+}
+
+.editor-section input[type="color"] {
+  width: 60px;
+  height: 40px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.editor-section textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+/* 预置公司选择 */
+.preset-companies {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.preset-company-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 8px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.preset-company-btn:hover {
+  border-color: var(--company-color, #fbbf24);
+  background: #fafafa;
+}
+
+.preset-company-btn.selected {
+  border-color: var(--company-color, #fbbf24);
+  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+  box-shadow: 0 2px 0 var(--company-color, #fbbf24);
+}
+
+.preset-company-btn .company-logo {
+  font-size: 24px;
+}
+
+.preset-company-btn .company-name {
+  font-size: 11px;
+  font-weight: 700;
+  color: #555;
+  text-align: center;
+}
+
+.preset-company-btn.custom {
+  border-style: dashed;
+}
+
+/* 自定义选项 */
+.custom-section {
+  background: #f9fafb;
+  padding: 16px;
+  border-radius: 10px;
+  margin-top: -10px;
+}
+
+.custom-row {
+  margin-bottom: 12px;
+}
+
+.custom-row:last-child {
+  margin-bottom: 0;
+}
+
+.custom-row label {
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.custom-row input {
+  padding: 10px 12px;
+}
+
+/* 编辑器底部 */
+.editor-footer {
+  display: flex;
+  gap: 12px;
+  padding: 16px 24px 24px;
+  border-top: 2px solid #f0f0f0;
+  position: sticky;
+  bottom: 0;
+  background: white;
+  border-radius: 0 0 8px 8px;
+}
+
+.editor-cancel-btn,
+.editor-save-btn {
+  flex: 1;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.editor-cancel-btn {
+  background: #f0f0f0;
+  color: #666;
+  box-shadow: 0 3px 0 #d0d0d0;
+}
+
+.editor-cancel-btn:hover {
+  background: #e0e0e0;
+  transform: translateY(-1px);
+}
+
+.editor-cancel-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #d0d0d0;
+}
+
+.editor-save-btn {
+  background: linear-gradient(180deg, #ffd700 0%, #ffb800 100%);
+  color: #7c5800;
+  box-shadow: 0 3px 0 #e6a700;
+}
+
+.editor-save-btn:hover {
+  transform: translateY(-1px);
+}
+
+.editor-save-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #e6a700;
+}
+
+
+/* ========== Logo 图片上传 ========== */
+.logo-upload-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.logo-upload-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px;
+  border: 2px dashed #e0e0e0;
+  border-radius: 10px;
+  background: #fafafa;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  width: 100%;
+}
+
+.logo-upload-btn:hover {
+  border-color: #fbbf24;
+  background: #fffbeb;
+}
+
+.upload-icon {
+  font-size: 24px;
+}
+
+.logo-preview-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-preview-image {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  border-radius: 8px;
+  border: 2px solid #e0e0e0;
+  background: white;
+}
+
+.logo-preview-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.logo-change-btn,
+.logo-clear-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.logo-change-btn {
+  background: #fbbf24;
+  color: #7c5800;
+}
+
+.logo-change-btn:hover {
+  background: #f59e0b;
+}
+
+.logo-clear-btn {
+  background: #f0f0f0;
+  color: #666;
+}
+
+.logo-clear-btn:hover {
+  background: #e0e0e0;
+}
+
+.upload-error {
+  color: #ef4444;
+  font-size: 12px;
+  padding: 6px 10px;
+  background: #fef2f2;
+  border-radius: 6px;
+  border: 1px solid #fecaca;
+}
+
+.upload-hint {
+  font-size: 11px;
+  color: #9ca3af;
+}
+@media (max-width: 768px) {
+  .ascension-main {
+    width: 100px;
+    height: 100px;
+  }
+
+  .ascension-content {
+    width: 80px;
+    height: 80px;
+  }
+
+  .ascension-logo {
+    font-size: 36px;
+  }
+
+  .ascension-info {
+    min-width: 130px;
+    padding: 12px 16px;
+  }
+
+  .ascension-company-name {
+    font-size: 16px;
+  }
+
+  .ascension-percentage {
+    font-size: 20px;
+  }
+
+  .ascension-label {
+    font-size: 12px;
+    padding: 6px 16px;
+  }
+
+  .preset-companies {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .ascension-editor {
+    min-width: auto;
+    width: 95vw;
+    max-width: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .ascension-node {
+    padding-top: 45px;
+  }
+
+  .ascension-main {
+    width: 90px;
+    height: 90px;
+  }
+
+  .ascension-content {
+    width: 72px;
+    height: 72px;
+  }
+
+  .ascension-logo {
+    font-size: 32px;
+  }
+
+  .ascension-info {
+    min-width: 120px;
+    padding: 10px 14px;
+  }
+
+  .ascension-company-name {
+    font-size: 14px;
+  }
+
+  .ascension-percentage {
+    font-size: 18px;
+  }
+
+  .ascension-editor-overlay {
+    padding: 10px;
+  }
+
+  .ascension-editor {
+    max-height: calc(100vh - 20px);
+  }
+
+  .editor-header {
+    padding: 16px 20px;
+  }
+
+  .editor-content {
+    padding: 16px 20px;
+  }
+
+  .editor-footer {
+    padding: 12px 20px 20px;
+  }
+
+  .preset-companies {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ========== 暗色模式 ========== */
+[data-theme="dark"] .ascension-info {
+  background: linear-gradient(135deg, #422006 0%, #451a03 100%);
+  border-color: #92400e;
+  box-shadow: 
+    0 4px 0 #78350f,
+    0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .ascension-company-name {
+  color: #fcd34d;
+}
+
+[data-theme="dark"] .ascension-progress-text {
+  color: #fbbf24;
+}
+
+[data-theme="dark"] .ascension-percentage {
+  color: #fcd34d;
+}
+
+[data-theme="dark"] .ascension-motivation {
+  color: #fcd34d;
+}
+
+[data-theme="dark"] .ascension-editor {
+  background: #1f2937;
+  box-shadow: 
+    0 8px 0 #111827,
+    0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .editor-header {
+  border-color: #374151;
+  background: #1f2937;
+}
+
+[data-theme="dark"] .editor-header h3 {
+  color: #f3f4f6;
+}
+
+[data-theme="dark"] .editor-close {
+  background: #374151;
+  color: #9ca3af;
+}
+
+[data-theme="dark"] .editor-close:hover {
+  background: #4b5563;
+  color: #f3f4f6;
+}
+
+[data-theme="dark"] .editor-section label {
+  color: #d1d5db;
+}
+
+[data-theme="dark"] .editor-section input,
+[data-theme="dark"] .editor-section textarea {
+  background: #374151;
+  border-color: #4b5563;
+  color: #f3f4f6;
+}
+
+[data-theme="dark"] .editor-section input:focus,
+[data-theme="dark"] .editor-section textarea:focus {
+  border-color: #fbbf24;
+}
+
+[data-theme="dark"] .preset-company-btn {
+  background: #374151;
+  border-color: #4b5563;
+}
+
+[data-theme="dark"] .preset-company-btn:hover {
+  background: #4b5563;
+}
+
+[data-theme="dark"] .preset-company-btn.selected {
+  background: linear-gradient(135deg, #422006 0%, #451a03 100%);
+}
+
+[data-theme="dark"] .preset-company-btn .company-name {
+  color: #d1d5db;
+}
+
+[data-theme="dark"] .custom-section {
+  background: #111827;
+}
+
+[data-theme="dark"] .editor-footer {
+  border-color: #374151;
+  background: #1f2937;
+}
+
+[data-theme="dark"] .editor-cancel-btn {
+  background: #374151;
+  color: #d1d5db;
+  box-shadow: 0 3px 0 #1f2937;
+}
+
+[data-theme="dark"] .editor-cancel-btn:hover {
+  background: #4b5563;
+}
+
+/* Dark mode for logo upload */
+[data-theme="dark"] .logo-upload-btn {
+  background: #374151;
+  border-color: #4b5563;
+  color: #d1d5db;
+}
+
+[data-theme="dark"] .logo-upload-btn:hover {
+  border-color: #fbbf24;
+  background: #422006;
+}
+
+[data-theme="dark"] .logo-preview-image {
+  border-color: #4b5563;
+  background: #374151;
+}
+
+[data-theme="dark"] .logo-clear-btn {
+  background: #374151;
+  color: #d1d5db;
+}
+
+[data-theme="dark"] .logo-clear-btn:hover {
+  background: #4b5563;
+}
+
+[data-theme="dark"] .upload-error {
+  background: #451a03;
+  border-color: #92400e;
+  color: #fca5a5;
+}
+
+[data-theme="dark"] .upload-hint {
+  color: #6b7280;
+}

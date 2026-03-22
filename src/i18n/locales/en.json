@@ -1,0 +1,155 @@
+{
+  "appTitle": "Redis Core Data Structures",
+  "appSlogan": "Deep understanding of Redis, starting from data structures!",
+  "searchPlaceholder": "Search data structures",
+  "viewMode": {
+    "list": "List",
+    "path": "Learning Path",
+    "listTooltip": "Display all data structures in list view",
+    "pathTooltip": "Display by learning path dependency, from simple to complex"
+  },
+  "columns": {
+    "problem": "Data Structure",
+    "passRate": "Mastery",
+    "difficulty": "Difficulty"
+  },
+  "difficulties": {
+    "easy": "Easy",
+    "medium": "Medium",
+    "hard": "Hard"
+  },
+  "filters": {
+    "title": "Filter by Tags",
+    "clear": "Clear",
+    "clearAll": "Clear All"
+  },
+  "sorting": {
+    "default": "Default Sort",
+    "difficulty": "Difficulty",
+    "passRate": "Mastery",
+    "problemId": "ID",
+    "tags": "Tags"
+  },
+  "languages": {
+    "en": "English",
+    "zh": "简体中文"
+  },
+  "animation": "Animation",
+  "animationText": "Anim",
+  "notAvailableText": "None",
+  "notAvailable": "Not Available",
+  "filterOnly": "Only",
+  "animationTooltip": {
+    "hasAnimation": "This data structure has an interactive animation. Click to visit the demo site.",
+    "noAnimation": "This data structure has no interactive animation yet. Can't wait? Click to create an issue to speed it up!",
+    "clickToView": "Click to view full animation demo"
+  },
+  "animationFilter": "Filter by interactive animation",
+  "issueTitle": {
+    "requestAnimation": "[Request Animation for {{id}}] {{title}}"
+  },
+  "tooltips": {
+    "openLeetcode": "Click to open Redis documentation"
+  },
+  "resetProgress": {
+    "button": "Restart",
+    "tooltip": "Clear all learning progress and start over",
+    "title": "Confirm Restart?",
+    "message": "This will clear all your learning progress, including completed data structure marks. This action cannot be undone.",
+    "confirm": "Confirm Reset",
+    "cancel": "Cancel",
+    "success": "Reset successful! All learning progress has been cleared. You can start learning again."
+  },
+  "resetPathProgress": {
+    "button": "Restart",
+    "tooltip": "Reset progress for this category",
+    "title": "Confirm Restart This Category?",
+    "message": "This will clear all learning progress for this category, including completed marks and earned experience points. This action cannot be undone.",
+    "confirm": "Confirm Reset",
+    "cancel": "Cancel",
+    "success": "Reset successful! Progress for this category has been cleared. You can start learning again."
+  },
+  "completion": {
+    "markComplete": "Mark as mastered",
+    "markIncomplete": "Mark as unmastered",
+    "completed": "Mastered",
+    "notStarted": "Not started"
+  },
+  "completionFilter": {
+    "tooltip": "Filter by mastery status",
+    "all": "All Data Structures",
+    "completed": "Mastered",
+    "incomplete": "Unmastered"
+  },
+  "experience": {
+    "exp": "EXP",
+    "level": "Level",
+    "realm": "Realm",
+    "toNextLevel": "{{exp}} EXP to next level",
+    "toNextRealm": "{{exp}} EXP to {{realm}}",
+    "viewRealmInfo": "View realm info",
+    "problemProgress": "Mastery Progress",
+    "completed": "Completed",
+    "total": "Total"
+  },
+  "realms": {
+    "qiRefining": "Qi Refining",
+    "foundation": "Foundation",
+    "goldenCore": "Golden Core",
+    "nascentSoul": "Nascent Soul",
+    "spiritSevering": "Spirit Severing",
+    "voidRefining": "Void Refining",
+    "bodyIntegration": "Body Integration",
+    "mahayana": "Mahayana",
+    "tribulation": "Tribulation",
+    "goldenImmortal": "Golden Immortal",
+    "ascension": "Ascension",
+    "layer": "Layer",
+    "systemTitle": "Cultivation Realm System",
+    "expRules": "EXP Rules",
+    "easy": "Easy",
+    "medium": "Medium",
+    "hard": "Hard",
+    "treasure": "Treasure",
+    "expPerProblem": "EXP per structure",
+    "requiredExp": "Required EXP",
+    "estimatedProblems": "Est. Structures",
+    "current": "Current",
+    "start": "Start",
+    "problems": "structures"
+  },
+  "share": {
+    "share": "Share",
+    "shareProgress": "Share Progress",
+    "title": "Share My Redis Learning Progress",
+    "generating": "Generating...",
+    "generateImage": "Generate Share Image",
+    "download": "Download Image",
+    "copyImage": "Copy Image",
+    "regenerate": "Regenerate",
+    "preview": "Generated Image",
+    "copiedSuccess": "Image copied to clipboard",
+    "copiedFailed": "Copy failed, please try downloading"
+  },
+  "clickBehavior": {
+    "settings": "Set Default Behavior",
+    "title": "Node Click Behavior Settings",
+    "description": "Choose the default behavior when clicking a data structure node",
+    "options": {
+      "animation": {
+        "label": "Animation Demo",
+        "description": "Open GitHub Pages animation demo site"
+      },
+      "leetcode": {
+        "label": "Redis Docs",
+        "description": "Open Redis official documentation"
+      },
+      "none": {
+        "label": "No Action",
+        "description": "Only select the node, no navigation"
+      }
+    },
+    "save": "Save",
+    "cancel": "Cancel"
+  }
+}

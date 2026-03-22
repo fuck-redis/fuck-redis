@@ -1,0 +1,22 @@
+/* 难度徽章样式 - Redis Red Theme */
+.difficulty {
+  font-size: 14px;
+  padding: 3px 8px;
+  border-radius: 3px;
+  font-weight: 500;
+}
+
+.difficulty.simple {
+  color: #00af9b;
+  background-color: rgba(0, 175, 155, 0.1);
+}
+
+.difficulty.medium {
+  color: #dc382d;
+  background-color: rgba(220, 56, 45, 0.1);
+}
+
+.difficulty.hard {
+  color: #a82a26;
+  background-color: rgba(168, 42, 38, 0.15);
+}

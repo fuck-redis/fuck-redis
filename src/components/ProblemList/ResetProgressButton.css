@@ -1,0 +1,43 @@
+/* 重新开始按钮 - 简洁小巧风格 */
+.reset-progress-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #666;
+}
+
+.reset-progress-btn:hover {
+  background: #fff1f0;
+  border-color: #ffa39e;
+  color: #cf1322;
+}
+
+.reset-progress-btn:active {
+  transform: scale(0.95);
+}
+
+.reset-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .reset-progress-btn {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .reset-icon {
+    width: 14px;
+    height: 14px;
+  }
+}

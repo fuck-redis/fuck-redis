@@ -1,0 +1,432 @@
+{
+  "data": {
+    "favoriteQuestionList": {
+      "questions": [
+        {
+          "difficulty": "EASY",
+          "id": 1,
+          "paidOnly": false,
+          "questionFrontendId": "sds",
+          "status": "TO_DO",
+          "title": "SDS (Simple Dynamic String)",
+          "titleSlug": "sds-simple-dynamic-string",
+          "translatedTitle": "SDS 简单动态字符串",
+          "topicTags": [
+            {
+              "name": "String",
+              "slug": "string",
+              "nameTranslated": "字符串"
+            }
+          ],
+          "category": "字符串",
+          "acRate": 0.85,
+          "repo": {
+            "name": "redis-sds-animation",
+            "url": "https://github.com/fuck-redis/redis-sds-animation",
+            "isPublic": true,
+            "pagesUrl": "https://fuck-redis.github.io/redis-sds-animation/"
+          },
+          "hasAnimation": true
+        },
+        {
+          "difficulty": "EASY",
+          "id": 2,
+          "paidOnly": false,
+          "questionFrontendId": "dict",
+          "status": "TO_DO",
+          "title": "Dict (Dictionary)",
+          "titleSlug": "dict-dictionary",
+          "translatedTitle": "Dict 字典",
+          "topicTags": [
+            {
+              "name": "Hash Table",
+              "slug": "hash-table",
+              "nameTranslated": "哈希表"
+            }
+          ],
+          "category": "哈希表",
+          "acRate": 0.80,
+          "repo": {
+            "name": "redis-dict-animation",
+            "url": "https://github.com/fuck-redis/redis-dict-animation",
+            "isPublic": true,
+            "pagesUrl": "https://fuck-redis.github.io/redis-dict-animation/"
+          },
+          "hasAnimation": true
+        },
+        {
+          "difficulty": "EASY",
+          "id": 3,
+          "paidOnly": false,
+          "questionFrontendId": "ziplist",
+          "status": "TO_DO",
+          "title": "Ziplist",
+          "titleSlug": "ziplist",
+          "translatedTitle": "Ziplist 压缩列表",
+          "topicTags": [
+            {
+              "name": "List",
+              "slug": "list",
+              "nameTranslated": "列表"
+            },
+            {
+              "name": "Compression",
+              "slug": "compression",
+              "nameTranslated": "压缩"
+            }
+          ],
+          "category": "列表",
+          "acRate": 0.75,
+          "repo": {
+            "name": "redis-ziplist-animation",
+            "url": "https://github.com/fuck-redis/redis-ziplist-animation",
+            "isPublic": true,
+            "pagesUrl": "https://fuck-redis.github.io/redis-ziplist-animation/"
+          },
+          "hasAnimation": true
+        },
+        {
+          "difficulty": "EASY",
+          "id": 4,
+          "paidOnly": false,
+          "questionFrontendId": "quicklist",
+          "status": "TO_DO",
+          "title": "Quicklist",
+          "titleSlug": "quicklist",
+          "translatedTitle": "Quicklist 快速列表",
+          "topicTags": [
+            {
+              "name": "List",
+              "slug": "list",
+              "nameTranslated": "列表"
+            },
+            {
+              "name": "Linked List",
+              "slug": "linked-list",
+              "nameTranslated": "链表"
+            }
+          ],
+          "category": "列表",
+          "acRate": 0.72,
+          "repo": {
+            "name": "redis-quicklist-animation",
+            "url": "https://github.com/fuck-redis/redis-quicklist-animation",
+            "isPublic": true,
+            "pagesUrl": "https://fuck-redis.github.io/redis-quicklist-animation/"
+          },
+          "hasAnimation": true
+        },
+        {
+          "difficulty": "EASY",
+          "id": 5,
+          "paidOnly": false,
+          "questionFrontendId": "intset",
+          "status": "TO_DO",
+          "title": "Intset",
+          "titleSlug": "intset",
+          "translatedTitle": "Intset 整数集合",
+          "topicTags": [
+            {
+              "name": "Set",
+              "slug": "set",
+              "nameTranslated": "集合"
+            },
+            {
+              "name": "Integer",
+              "slug": "integer",
+              "nameTranslated": "整数"
+            }
+          ],
+          "category": "集合",
+          "acRate": 0.70,
+          "repo": {
+            "name": "redis-intset-animation",
+            "url": "https://github.com/fuck-redis/redis-intset-animation",
+            "isPublic": true,
+            "pagesUrl": "https://fuck-redis.github.io/redis-intset-animation/"
+          },
+          "hasAnimation": true
+        },
+        {
+          "difficulty": "MEDIUM",
+          "id": 6,
+          "paidOnly": false,
+          "questionFrontendId": "skiplist",
+          "status": "TO_DO",
+          "title": "SkipList",
+          "titleSlug": "skiplist",
+          "translatedTitle": "SkipList 跳跃表",
+          "topicTags": [
+            {
+              "name": "Sorted Set",
+              "slug": "sorted-set",
+              "nameTranslated": "有序集合"
+            },
+            {
+              "name": "Skip List",
+              "slug": "skip-list",
+              "nameTranslated": "跳跃表"
+            }
+          ],
+          "category": "有序集合",
+          "acRate": 0.65,
+          "repo": {
+            "name": "redis-skiplist-animation",
+            "url": "https://github.com/fuck-redis/redis-skiplist-animation",
+            "isPublic": false,
+            "pagesUrl": null
+          },
+          "hasAnimation": false
+        },
+        {
+          "difficulty": "MEDIUM",
+          "id": 7,
+          "paidOnly": false,
+          "questionFrontendId": "ziplist-sorted-set",
+          "status": "TO_DO",
+          "title": "Ziplist for Sorted Set",
+          "titleSlug": "ziplist-sorted-set",
+          "translatedTitle": "有序集合之 Ziplist",
+          "topicTags": [
+            {
+              "name": "Sorted Set",
+              "slug": "sorted-set",
+              "nameTranslated": "有序集合"
+            },
+            {
+              "name": "Compression",
+              "slug": "compression",
+              "nameTranslated": "压缩"
+            }
+          ],
+          "category": "有序集合",
+          "acRate": 0.68,
+          "repo": {
+            "name": "redis-ziplist-animation",
+            "url": "https://github.com/fuck-redis/redis-ziplist-animation",
+            "isPublic": true,
+            "pagesUrl": "https://fuck-redis.github.io/redis-ziplist-animation/"
+          },
+          "hasAnimation": true
+        },
+        {
+          "difficulty": "EASY",
+          "id": 8,
+          "paidOnly": false,
+          "questionFrontendId": "embstr",
+          "status": "TO_DO",
+          "title": "Embstr",
+          "titleSlug": "embstr",
+          "translatedTitle": "Embstr 短字符串",
+          "topicTags": [
+            {
+              "name": "String",
+              "slug": "string",
+              "nameTranslated": "字符串"
+            },
+            {
+              "name": "Memory",
+              "slug": "memory",
+              "nameTranslated": "内存"
+            }
+          ],
+          "category": "字符串",
+          "acRate": 0.78,
+          "repo": {
+            "name": "redis-sds-animation",
+            "url": "https://github.com/fuck-redis/redis-sds-animation",
+            "isPublic": true,
+            "pagesUrl": "https://fuck-redis.github.io/redis-sds-animation/"
+          },
+          "hasAnimation": true
+        },
+        {
+          "difficulty": "HARD",
+          "id": 9,
+          "paidOnly": false,
+          "questionFrontendId": "redis-object",
+          "status": "TO_DO",
+          "title": "Redis Object",
+          "titleSlug": "redis-object",
+          "translatedTitle": "Redis Object 对象结构",
+          "topicTags": [
+            {
+              "name": "Object",
+              "slug": "object",
+              "nameTranslated": "对象"
+            },
+            {
+              "name": "Type",
+              "slug": "type",
+              "nameTranslated": "类型"
+            }
+          ],
+          "category": "对象",
+          "acRate": 0.55,
+          "repo": {
+            "name": "redis-object-animation",
+            "url": "https://github.com/fuck-redis/redis-object-animation",
+            "isPublic": false,
+            "pagesUrl": null
+          },
+          "hasAnimation": false
+        },
+        {
+          "difficulty": "MEDIUM",
+          "id": 10,
+          "paidOnly": false,
+          "questionFrontendId": "hyperloglog",
+          "status": "TO_DO",
+          "title": "HyperLogLog",
+          "titleSlug": "hyperloglog",
+          "translatedTitle": "HyperLogLog 基数统计",
+          "topicTags": [
+            {
+              "name": "Bitmap",
+              "slug": "bitmap",
+              "nameTranslated": "位图"
+            },
+            {
+              "name": "Probability",
+              "slug": "probability",
+              "nameTranslated": "概率"
+            }
+          ],
+          "category": "高级数据结构",
+          "acRate": 0.60,
+          "repo": {
+            "name": "redis-hyperloglog-animation",
+            "url": "https://github.com/fuck-redis/redis-hyperloglog-animation",
+            "isPublic": false,
+            "pagesUrl": null
+          },
+          "hasAnimation": false
+        },
+        {
+          "difficulty": "MEDIUM",
+          "id": 11,
+          "paidOnly": false,
+          "questionFrontendId": "bitmap",
+          "status": "TO_DO",
+          "title": "Bitmap",
+          "titleSlug": "bitmap",
+          "translatedTitle": "Bitmap 位图",
+          "topicTags": [
+            {
+              "name": "Bitmap",
+              "slug": "bitmap",
+              "nameTranslated": "位图"
+            },
+            {
+              "name": "String",
+              "slug": "string",
+              "nameTranslated": "字符串"
+            }
+          ],
+          "category": "高级数据结构",
+          "acRate": 0.70,
+          "repo": {
+            "name": "redis-bitmap-animation",
+            "url": "https://github.com/fuck-redis/redis-bitmap-animation",
+            "isPublic": false,
+            "pagesUrl": null
+          },
+          "hasAnimation": false
+        },
+        {
+          "difficulty": "MEDIUM",
+          "id": 12,
+          "paidOnly": false,
+          "questionFrontendId": "geospatial",
+          "status": "TO_DO",
+          "title": "Geospatial",
+          "titleSlug": "geospatial",
+          "translatedTitle": "Geospatial 地理空间",
+          "topicTags": [
+            {
+              "name": "Sorted Set",
+              "slug": "sorted-set",
+              "nameTranslated": "有序集合"
+            },
+            {
+              "name": "Geo",
+              "slug": "geo",
+              "nameTranslated": "地理"
+            }
+          ],
+          "category": "高级数据结构",
+          "acRate": 0.65,
+          "repo": {
+            "name": "redis-geospatial-animation",
+            "url": "https://github.com/fuck-redis/redis-geospatial-animation",
+            "isPublic": false,
+            "pagesUrl": null
+          },
+          "hasAnimation": false
+        },
+        {
+          "difficulty": "MEDIUM",
+          "id": 13,
+          "paidOnly": false,
+          "questionFrontendId": "stream",
+          "status": "TO_DO",
+          "title": "Stream",
+          "titleSlug": "stream",
+          "translatedTitle": "Stream 流",
+          "topicTags": [
+            {
+              "name": "Stream",
+              "slug": "stream",
+              "nameTranslated": "流"
+            },
+            {
+              "name": "Radix Tree",
+              "slug": "radix-tree",
+              "nameTranslated": "基数树"
+            }
+          ],
+          "category": "高级数据结构",
+          "acRate": 0.50,
+          "repo": {
+            "name": "redis-stream-animation",
+            "url": "https://github.com/fuck-redis/redis-stream-animation",
+            "isPublic": false,
+            "pagesUrl": null
+          },
+          "hasAnimation": false
+        },
+        {
+          "difficulty": "EASY",
+          "id": 14,
+          "paidOnly": false,
+          "questionFrontendId": "rax",
+          "status": "TO_DO",
+          "title": "Rax (Radix Tree)",
+          "titleSlug": "rax-radix-tree",
+          "translatedTitle": "Rax 基数树",
+          "topicTags": [
+            {
+              "name": "Radix Tree",
+              "slug": "radix-tree",
+              "nameTranslated": "基数树"
+            },
+            {
+              "name": "Tree",
+              "slug": "tree",
+              "nameTranslated": "树"
+            }
+          ],
+          "category": "高级数据结构",
+          "acRate": 0.55,
+          "repo": {
+            "name": "redis-rax-animation",
+            "url": "https://github.com/fuck-redis/redis-rax-animation",
+            "isPublic": false,
+            "pagesUrl": null
+          },
+          "hasAnimation": false
+        }
+      ]
+    }
+  }
+}

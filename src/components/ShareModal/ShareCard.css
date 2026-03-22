@@ -1,0 +1,216 @@
+/* Share Card - Redis Red Theme */
+.share-card {
+  width: 680px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(220, 56, 45, 0.15);
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Header */
+.share-card-header {
+  background: linear-gradient(135deg, #DC382D 0%, #A82A26 100%);
+  padding: 28px 32px;
+  color: white;
+}
+
+.header-content {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.header-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 6px 0;
+  color: #ffffff;
+}
+
+.header-subtitle {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+}
+
+/* Stats */
+.header-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-value {
+  display: block;
+  font-size: 32px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.stat-label {
+  display: block;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 4px;
+}
+
+.stat-divider {
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.stat-percent {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 6px 14px;
+  border-radius: 20px;
+}
+
+/* Realm */
+.header-realm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.realm-icon {
+  font-size: 20px;
+}
+
+.realm-name {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.realm-exp {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.15);
+  padding: 4px 10px;
+  border-radius: 12px;
+}
+
+/* Problem List */
+.problem-list {
+  background: #ffffff;
+}
+
+.list-header {
+  display: grid;
+  grid-template-columns: 50px 1fr 70px 60px;
+  gap: 12px;
+  padding: 14px 28px;
+  background: #fff5f5;
+  border-bottom: 1px solid #ffe6e6;
+  font-size: 12px;
+  font-weight: 600;
+  color: #a82a26;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.list-body {
+  padding: 0;
+}
+
+.problem-row {
+  display: grid;
+  grid-template-columns: 50px 1fr 70px 60px;
+  gap: 12px;
+  padding: 12px 28px;
+  border-bottom: 1px solid #f5f5f5;
+  font-size: 14px;
+  align-items: center;
+}
+
+.problem-row:last-child {
+  border-bottom: none;
+}
+
+.problem-row.completed {
+  background: #fff5f5;
+}
+
+.problem-id {
+  font-weight: 600;
+  color: #a82a26;
+  font-size: 13px;
+}
+
+.problem-row.completed .problem-id {
+  color: #dc382d;
+}
+
+.problem-title {
+  color: #333;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.problem-row.completed .problem-title {
+  color: #a82a26;
+}
+
+.problem-difficulty {
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+  padding: 4px 10px;
+  border-radius: 10px;
+  text-transform: uppercase;
+}
+
+.problem-status {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: #d0d0d0;
+}
+
+.problem-row.completed .problem-status {
+  color: #dc382d;
+}
+
+/* Footer */
+.share-card-footer {
+  background: #fff5f5;
+  padding: 20px 28px;
+  text-align: center;
+  border-top: 1px solid #ffe6e6;
+}
+
+.footer-slogan {
+  font-size: 14px;
+  color: #a82a26;
+  margin: 0 0 6px 0;
+  font-weight: 500;
+}
+
+.footer-url {
+  font-size: 12px;
+  color: #dc382d;
+  margin: 0;
+  font-family: 'SF Mono', Monaco, monospace;
+}
+
+/* Print optimization */
+@media print {
+  .share-card {
+    box-shadow: none;
+    border: 1px solid #e2e8f0;
+  }
+}

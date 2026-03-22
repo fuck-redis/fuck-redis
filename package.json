@@ -1,0 +1,70 @@
+{
+  "name": "redis-visualization",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "https://fuck-redis.github.io/fuck-redis",
+  "dependencies": {
+    "@types/node": "^16.18.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "ajv": "^8.17.1",
+    "d3": "^7.8.5",
+    "dom-to-image": "^2.6.0",
+    "i18next": "^23.11.5",
+    "i18next-browser-languagedetector": "^7.2.1",
+    "js-yaml": "^4.1.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-i18next": "^14.1.2",
+    "react-icons": "^5.5.0",
+    "react-router-dom": "^7.11.0",
+    "react-scripts": "5.0.1",
+    "typescript": "^4.9.5"
+  },
+  "scripts": {
+    "generate-animations": "node scripts/generate-animation-list.js",
+    "prestart": "npm run generate-animations",
+    "start": "react-scripts start",
+    "prebuild": "npm run generate-animations",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "deploy-manual": "npm run build && git checkout -b gh-pages && git add -f build && git commit -m 'Deploy to GitHub Pages' && git subtree push --prefix build origin gh-pages && git checkout main"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "jest": {
+    "transformIgnorePatterns": [
+      "node_modules/(?!(fast-check)/)"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.1",
+    "@types/dom-to-image": "^2.6.7",
+    "@types/jest": "^30.0.0",
+    "@types/js-yaml": "^4.0.9",
+    "@types/react-router-dom": "^5.3.3",
+    "fast-check": "^4.5.3",
+    "gh-pages": "^6.1.1",
+    "puppeteer": "^24.34.0"
+  }
+}

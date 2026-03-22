@@ -1,0 +1,74 @@
+{
+  "sds": {
+    "name": "redis-sds-animation",
+    "url": "https://github.com/fuck-redis/redis-sds-animation",
+    "isPublic": true,
+    "pagesUrl": "https://fuck-redis.github.io/redis-sds-animation/"
+  },
+  "dict": {
+    "name": "redis-dict-animation",
+    "url": "https://github.com/fuck-redis/redis-dict-animation",
+    "isPublic": true,
+    "pagesUrl": "https://fuck-redis.github.io/redis-dict-animation/"
+  },
+  "ziplist": {
+    "name": "redis-ziplist-animation",
+    "url": "https://github.com/fuck-redis/redis-ziplist-animation",
+    "isPublic": true,
+    "pagesUrl": "https://fuck-redis.github.io/redis-ziplist-animation/"
+  },
+  "quicklist": {
+    "name": "redis-quicklist-animation",
+    "url": "https://github.com/fuck-redis/redis-quicklist-animation",
+    "isPublic": true,
+    "pagesUrl": "https://fuck-redis.github.io/redis-quicklist-animation/"
+  },
+  "intset": {
+    "name": "redis-intset-animation",
+    "url": "https://github.com/fuck-redis/redis-intset-animation",
+    "isPublic": true,
+    "pagesUrl": "https://fuck-redis.github.io/redis-intset-animation/"
+  },
+  "skiplist": {
+    "name": "redis-skiplist-animation",
+    "url": "https://github.com/fuck-redis/redis-skiplist-animation",
+    "isPublic": false,
+    "pagesUrl": null
+  },
+  "embstr": {
+    "name": "redis-sds-animation",
+    "url": "https://github.com/fuck-redis/redis-sds-animation",
+    "isPublic": true,
+    "pagesUrl": "https://fuck-redis.github.io/redis-sds-animation/"
+  },
+  "hyperloglog": {
+    "name": "redis-hyperloglog-animation",
+    "url": "https://github.com/fuck-redis/redis-hyperloglog-animation",
+    "isPublic": false,
+    "pagesUrl": null
+  },
+  "bitmap": {
+    "name": "redis-bitmap-animation",
+    "url": "https://github.com/fuck-redis/redis-bitmap-animation",
+    "isPublic": false,
+    "pagesUrl": null
+  },
+  "geospatial": {
+    "name": "redis-geospatial-animation",
+    "url": "https://github.com/fuck-redis/redis-geospatial-animation",
+    "isPublic": false,
+    "pagesUrl": null
+  },
+  "stream": {
+    "name": "redis-stream-animation",
+    "url": "https://github.com/fuck-redis/redis-stream-animation",
+    "isPublic": false,
+    "pagesUrl": null
+  },
+  "rax": {
+    "name": "redis-rax-animation",
+    "url": "https://github.com/fuck-redis/redis-rax-animation",
+    "isPublic": false,
+    "pagesUrl": null
+  }
+}

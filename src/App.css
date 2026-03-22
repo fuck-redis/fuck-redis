@@ -1,0 +1,142 @@
+/* Redis Red Theme - Main App Styles */
+:root {
+  --redis-primary: #DC382D;
+  --redis-dark: #A82A26;
+  --redis-light: #FF6B6B;
+  --redis-bg: #fafafa;
+  --redis-text: #333;
+  --redis-text-light: #666;
+}
+
+.app {
+  min-height: 100vh;
+  background-color: var(--redis-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.app-container {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0;
+  padding: 10px 20px;
+  background-color: white;
+  border-radius: 8px 8px 0 0;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 1000px;
+  box-sizing: border-box;
+}
+
+.app-logo-container {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.app-logo-container:hover {
+  opacity: 0.8;
+}
+
+.app-logo-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.app-logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 24px;
+  color: var(--redis-primary);
+  flex-grow: 1;
+  font-weight: bold;
+}
+
+.app-slogan {
+  font-size: 14px;
+  color: var(--redis-text-light);
+  margin-top: 4px;
+  font-style: italic;
+  margin-left: 50px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.github-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: 15px;
+  transition: transform 0.2s;
+  text-decoration: none;
+}
+
+.github-link:hover {
+  transform: scale(1.05);
+}
+
+.github-link:hover .github-icon svg {
+  color: var(--redis-primary) !important;
+}
+
+.github-stars {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 14px;
+  color: var(--redis-text-light);
+  font-weight: 500;
+}
+
+.app-content {
+  flex-grow: 1;
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 0;
+}
+
+.App-link {
+  color: var(--redis-primary);
+}
+
+.github-badge {
+  margin: 0 15px;
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s;
+}
+
+.github-badge:hover {
+  transform: scale(1.1);
+}
+
+.github-badge svg {
+  fill: var(--redis-text);
+}
+
+.github-badge:hover svg {
+  fill: var(--redis-primary);
+}
