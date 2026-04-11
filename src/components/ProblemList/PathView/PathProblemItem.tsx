@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Problem } from '../types';
 import Tooltip from '../../Tooltip';
+import ProblemDetailModal from '../ProblemDetailModal';
 import './PathProblemItem.css';
 
 interface PathProblemItemProps {
@@ -11,8 +12,8 @@ interface PathProblemItemProps {
   selectedTags: string[];
   toggleTag: (tagSlug: string) => void;
   handleAnimationClick: (
-    event: React.MouseEvent, 
-    questionId: string, 
+    event: React.MouseEvent,
+    questionId: string,
     hasAnimation: boolean,
     title?: string,
     t?: (key: string) => string,
@@ -33,8 +34,14 @@ const PathProblemItem: React.FC<PathProblemItemProps> = ({
   const difficultyClass = problem.difficulty.toLowerCase();
   const difficultyText = t(`difficulties.${difficultyClass}`);
 
+  // 详情弹窗状态
+  const [showDetail, setShowDetail] = useState(false);
+
   const handleTitleClick = () => {
-    if (problem.hasAnimation && problem.repo?.pagesUrl) {
+    // 如果有真实内容，显示详情弹窗
+    if (problem.description || problem.keyPoints?.length || problem.operations?.length || problem.useCases?.length) {
+      setShowDetail(true);
+    } else if (problem.hasAnimation && problem.repo?.pagesUrl) {
       window.open(problem.repo.pagesUrl, '_blank');
     } else {
       // 跳转到LeetCode
@@ -111,6 +118,15 @@ const PathProblemItem: React.FC<PathProblemItemProps> = ({
           </div>
         </div>
       </div>
+
+      {/* 详情弹窗 */}
+      <ProblemDetailModal
+        isOpen={showDetail}
+        onClose={() => setShowDetail(false)}
+        problem={problem}
+        currentLang={currentLang}
+        t={t}
+      />
     </div>
   );
 };

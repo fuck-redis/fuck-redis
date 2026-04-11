@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Tooltip from '../Tooltip';
 import AnimationBadge from './AnimationBadge';
 import ProblemTags from './ProblemTags';
 import DifficultyBadge from './DifficultyBadge';
+import ProblemDetailModal from './ProblemDetailModal';
 import { Problem } from './types';
 import './ProblemItem.css';
 
@@ -24,11 +25,11 @@ const getLeetCodeProblemUrl = (problem: Problem, lang: string): string => {
   return `${baseUrl}${problem.titleSlug}/`;
 };
 
-const ProblemItem: React.FC<ProblemItemProps> = ({ 
-  problem, 
-  selectedTags, 
-  toggleTag, 
-  handleAnimationClick, 
+const ProblemItem: React.FC<ProblemItemProps> = ({
+  problem,
+  selectedTags,
+  toggleTag,
+  handleAnimationClick,
   currentLang,
   t,
   isCompleted = false,
@@ -36,6 +37,22 @@ const ProblemItem: React.FC<ProblemItemProps> = ({
 }) => {
   const title = currentLang === 'zh' ? problem.translatedTitle : problem.title;
   const pagesUrl = problem.repo?.pagesUrl || null;
+
+  // 详情弹窗状态
+  const [showDetail, setShowDetail] = useState(false);
+
+  // 处理标题点击 - 显示详情弹窗
+  const handleTitleClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    // 如果有真实内容，显示详情弹窗
+    if (problem.description || problem.keyPoints?.length || problem.operations?.length || problem.useCases?.length) {
+      setShowDetail(true);
+    } else {
+      // 兼容没有详情的情况，跳转到LeetCode
+      const url = getLeetCodeProblemUrl(problem, currentLang);
+      window.open(url, '_blank');
+    }
+  };
   
   // 处理题目序号点击事件
   const handleProblemIdClick = (event: React.MouseEvent) => {
@@ -74,9 +91,9 @@ const ProblemItem: React.FC<ProblemItemProps> = ({
           </span>
         </Tooltip>
         <Tooltip content={problem.hasAnimation ? title : t('animationTooltip.noAnimation')}>
-          <span 
-            className="problem-title" 
-            onClick={(e) => handleAnimationClick(e, problem.questionFrontendId, problem.hasAnimation, title, t, pagesUrl)}
+          <span
+            className="problem-title"
+            onClick={handleTitleClick}
             style={{ cursor: 'pointer' }}
           >
             {title}
@@ -105,6 +122,15 @@ const ProblemItem: React.FC<ProblemItemProps> = ({
         </Tooltip>
         <DifficultyBadge difficulty={problem.difficulty} t={t} />
       </div>
+
+      {/* 详情弹窗 */}
+      <ProblemDetailModal
+        isOpen={showDetail}
+        onClose={() => setShowDetail(false)}
+        problem={problem}
+        currentLang={currentLang}
+        t={t}
+      />
     </div>
   );
 };

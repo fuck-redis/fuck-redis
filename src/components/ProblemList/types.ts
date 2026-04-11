@@ -24,6 +24,17 @@ export interface Problem {
     nameTranslated: string;
     slug: string;
   }>;
+  // 新增真实内容字段
+  description?: string;           // 核心描述
+  keyPoints?: string[];          // 关键特点/优势
+  operations?: string[];          // 主要操作
+  useCases?: string[];            // 适用场景
+  contentSections?: ContentSection[]; // 详细内容章节
+}
+
+export interface ContentSection {
+  title: string;
+  content: string;
 }
 
 // 定义标签类型

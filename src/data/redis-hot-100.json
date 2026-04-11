@@ -3,14 +3,24 @@
     "favoriteQuestionList": {
       "questions": [
         {
-          "difficulty": "EASY",
           "id": 1,
-          "paidOnly": false,
           "questionFrontendId": "sds",
-          "status": "TO_DO",
           "title": "SDS (Simple Dynamic String)",
-          "titleSlug": "sds-simple-dynamic-string",
           "translatedTitle": "SDS 简单动态字符串",
+          "titleSlug": "sds-simple-dynamic-string",
+          "difficulty": "EASY",
+          "paidOnly": false,
+          "status": "TO_DO",
+          "acRate": 0.85,
+          "frequency": null,
+          "hasAnimation": true,
+          "category": "字符串",
+          "repo": {
+            "name": "redis-sds-animation",
+            "url": "https://github.com/fuck-redis/redis-sds-animation",
+            "isPublic": true,
+            "pagesUrl": "https://fuck-redis.github.io/redis-sds-animation/"
+          },
           "topicTags": [
             {
               "name": "String",
@@ -18,25 +28,62 @@
               "nameTranslated": "字符串"
             }
           ],
-          "category": "字符串",
-          "acRate": 0.85,
-          "repo": {
-            "name": "redis-sds-animation",
-            "url": "https://github.com/fuck-redis/redis-sds-animation",
-            "isPublic": true,
-            "pagesUrl": "https://fuck-redis.github.io/redis-sds-animation/"
-          },
-          "hasAnimation": true
+          "description": "SDS (Simple Dynamic String) 是 Redis 字符串的底层实现，通过在 header 中维护元数据（len, alloc, flags），实现了 O(1) 长度获取、自动扩容和二进制安全。Redis 几乎所有需要字符串的地方都使用 SDS，包括键名、字符串值、协议传输等。",
+          "keyPoints": [
+            "O(1) 长度获取 - 直接读取 len 字段，无需遍历",
+            "空间预分配 - 扩容时多分配空间，减少内存分配次数（小于1MB翻倍，大于1MB多分配1MB）",
+            "惰性空间回收 - 缩短字符串时不立即释放空间，保留在 free 区域供后续使用",
+            "类型自适应 - 根据字符串长度自动选择最紧凑的 header 类型（TYPE_5/8/16/32/64）",
+            "二进制安全 - 可存储任意二进制数据，不受 \\0 限制",
+            "5 种 Header 类型 - TYPE_5(0~31B/1B header), TYPE_8(32~255B/3B), TYPE_16(256B~64KB/5B), TYPE_32(64KB~4GB/9B), TYPE_64(>4GB/17B)"
+          ],
+          "operations": [
+            "sdsnew - 根据初始字符串创建 SDS",
+            "sdsempty - 创建空 SDS",
+            "sdsdup - 复制现有 SDS",
+            "sdscat - 追加拼接",
+            "sdscpy - 完全覆盖",
+            "sdsrange - 区间截取",
+            "sdstrim - 两端裁剪",
+            "sdsMakeRoomFor - 预分配空间",
+            "sdsRemoveFreeSpace - 释放空闲空间"
+          ],
+          "useCases": [
+            "Redis 键名存储 - 数十亿短键名高效存储",
+            "STRING 类型 value - SET/GET 操作",
+            "Redis Protocol 通信 - bulk string 格式",
+            "计数器、缓存数据、JSON 存储等中等长度字符串"
+          ],
+          "contentSections": [
+            {
+              "title": "为什么需要 SDS？",
+              "content": "C 字符串有三大问题：1) strlen 需要 O(n) 遍历；2) strcpy/strcat 不检查边界，有缓冲区溢出风险；3) \\0 会截断数据，二进制不安全。SDS 通过在 header 中维护 len 字段，解决了这些问题。"
+            },
+            {
+              "title": "SDS 的四大核心优势",
+              "content": "1) 长度 O(1) 获取：直接读 len 字段；2) 空间预分配：减少内存分配次数；3) 惰性空间回收：保留 free 空间供后续使用；4) 类型自适应：根据长度选择最紧凑的 header。"
+            }
+          ]
         },
         {
-          "difficulty": "EASY",
           "id": 2,
-          "paidOnly": false,
           "questionFrontendId": "dict",
-          "status": "TO_DO",
           "title": "Dict (Dictionary)",
-          "titleSlug": "dict-dictionary",
           "translatedTitle": "Dict 字典",
+          "titleSlug": "dict-dictionary",
+          "difficulty": "MEDIUM",
+          "paidOnly": false,
+          "status": "TO_DO",
+          "acRate": 0.80,
+          "frequency": null,
+          "hasAnimation": true,
+          "category": "哈希表",
+          "repo": {
+            "name": "redis-dict-animation",
+            "url": "https://github.com/fuck-redis/redis-dict-animation",
+            "isPublic": true,
+            "pagesUrl": "https://fuck-redis.github.io/redis-dict-animation/"
+          },
           "topicTags": [
             {
               "name": "Hash Table",
@@ -44,25 +91,57 @@
               "nameTranslated": "哈希表"
             }
           ],
-          "category": "哈希表",
-          "acRate": 0.80,
-          "repo": {
-            "name": "redis-dict-animation",
-            "url": "https://github.com/fuck-redis/redis-dict-animation",
-            "isPublic": true,
-            "pagesUrl": "https://fuck-redis.github.io/redis-dict-animation/"
-          },
-          "hasAnimation": true
+          "description": "Dict（字典）是 Redis 最核心的数据结构之一，实现高性能哈希表。采用双哈希表结构实现渐进式 Rehash，使用链地址法解决哈希冲突，默认使用 SipHash 算法防御哈希洪水攻击。几乎所有 Redis 数据类型底层都会用到 Dict。",
+          "keyPoints": [
+            "双哈希表结构 - ht[0] 主表，ht[1] 用于 Rehash，实现渐进式迁移",
+            "渐进式 Rehash - 将 rehash 分散到多次请求，避免一次性长时间阻塞",
+            "链地址法解决冲突 - 每个桶存储链表头指针，高负载下表现稳定",
+            "自动扩容与缩容 - 根据负载因子（used/size）自动调整，阈值通常为1.0",
+            "安全哈希函数 - 默认 SipHash，防御 Hash Flooding Attack",
+            "dictEntry 结构 - key指针 + union值 + next链表指针"
+          ],
+          "operations": [
+            "哈希查找 - O(1) 平均，O(n) 最坏",
+            "哈希插入 - O(1) 平均，可能触发 rehash",
+            "哈希删除 - O(1+k/n)，需遍历冲突链",
+            "Rehash 步骤 - 每次只迁移一个桶，O(1)"
+          ],
+          "useCases": [
+            "数据库键空间 - 存储所有键值对",
+            "Hash 类型 - HASH 命令的底层实现",
+            "Set 类型 - SET 命令的底层实现之一",
+            "有序集合 - ZSET 的内部索引"
+          ],
+          "contentSections": [
+            {
+              "title": "什么是 Redis Dict？",
+              "content": "Redis Dict 是高性能哈希表实现，采用链地址法解决冲突。核心设计是渐进式 Rehash，避免一次性 rehash 导致的长时间阻塞。dictEntry 包含 key 指针、union 值和 next 指针。"
+            },
+            {
+              "title": "渐进式 Rehash",
+              "content": "ht[0] 为主表，ht[1] 为扩展/收缩时的目的表。rehashidx 记录进度，每次增删改查时顺带迁移一个桶。将庞大的 rehash 工作分散到多次请求中完成。"
+            }
+          ]
         },
         {
-          "difficulty": "EASY",
           "id": 3,
-          "paidOnly": false,
           "questionFrontendId": "ziplist",
-          "status": "TO_DO",
           "title": "Ziplist",
-          "titleSlug": "ziplist",
           "translatedTitle": "Ziplist 压缩列表",
+          "titleSlug": "ziplist",
+          "difficulty": "MEDIUM",
+          "paidOnly": false,
+          "status": "TO_DO",
+          "acRate": 0.75,
+          "frequency": null,
+          "hasAnimation": true,
+          "category": "列表",
+          "repo": {
+            "name": "redis-ziplist-animation",
+            "url": "https://github.com/fuck-redis/redis-ziplist-animation",
+            "isPublic": true,
+            "pagesUrl": "https://fuck-redis.github.io/redis-ziplist-animation/"
+          },
           "topicTags": [
             {
               "name": "List",
@@ -75,25 +154,57 @@
               "nameTranslated": "压缩"
             }
           ],
-          "category": "列表",
-          "acRate": 0.75,
-          "repo": {
-            "name": "redis-ziplist-animation",
-            "url": "https://github.com/fuck-redis/redis-ziplist-animation",
-            "isPublic": true,
-            "pagesUrl": "https://fuck-redis.github.io/redis-ziplist-animation/"
-          },
-          "hasAnimation": true
+          "description": "ZipList（压缩列表）是 Redis 为优化内存而设计的连续内存数据结构。通过紧凑的内存布局和变长编码，相比普通链表可节省 40-60% 内存。无指针开销，CPU 缓存友好，但插入删除需要移动数据，且存在连锁更新风险。用于 List、Hash、ZSet 类型的底层实现之一。",
+          "keyPoints": [
+            "连续内存布局 - 无 prev/next 指针开销，CPU 缓存命中率高",
+            "变长编码 - 根据数据大小自动选择最优存储方式（整数5种+字符串3种）",
+            "紧凑 Header - zlbytes(4B) + zltail(4B) + zllen(2B) = 10字节",
+            "prevlen 字段 - 记录前一个 entry 长度，支持反向遍历，也是连锁更新根源",
+            "连锁更新风险 - 当 entry 大小跨越 254 字节阈值时，后续所有 entry 都需更新 prevlen",
+            "O(1) 尾操作 - zltail 指针直接定位尾部，支持快速 RPUSH/RPOP"
+          ],
+          "operations": [
+            "LPUSH/RPUSH - 头插 O(n)，尾插 O(1)（有 zltail）",
+            "LPOP/RPOP - 头删 O(n)，尾删 O(1)",
+            "LINDEX - 随机访问 O(n)",
+            "LRANGE - 范围读取 O(n)"
+          ],
+          "useCases": [
+            "少量元素 (<512个) 的 List",
+            "元素值较小 (<64字节) 的 Hash",
+            "小数据量的 Sorted Set",
+            "内存敏感、读多写少的场景"
+          ],
+          "contentSections": [
+            {
+              "title": "ZipList 核心目标：节省内存",
+              "content": "通过紧凑的连续内存布局和变长编码优化，ZipList 相比普通链表可节省 40-60% 内存。无指针开销、变长编码、CPU 缓存友好是三大优势。"
+            },
+            {
+              "title": "连锁更新风险",
+              "content": "prevlen 字段记录前一个 entry 长度（1或5字节）。当某个 entry 大小超过 254 字节时，其后所有 entry 的 prevlen 都需从 1 字节扩展到 5 字节，可能引发性能问题。"
+            }
+          ]
         },
         {
-          "difficulty": "EASY",
           "id": 4,
-          "paidOnly": false,
           "questionFrontendId": "quicklist",
-          "status": "TO_DO",
           "title": "Quicklist",
-          "titleSlug": "quicklist",
           "translatedTitle": "Quicklist 快速列表",
+          "titleSlug": "quicklist",
+          "difficulty": "MEDIUM",
+          "paidOnly": false,
+          "status": "TO_DO",
+          "acRate": 0.72,
+          "frequency": null,
+          "hasAnimation": true,
+          "category": "列表",
+          "repo": {
+            "name": "redis-quicklist-animation",
+            "url": "https://github.com/fuck-redis/redis-quicklist-animation",
+            "isPublic": true,
+            "pagesUrl": "https://fuck-redis.github.io/redis-quicklist-animation/"
+          },
           "topicTags": [
             {
               "name": "List",
@@ -106,25 +217,58 @@
               "nameTranslated": "链表"
             }
           ],
-          "category": "列表",
-          "acRate": 0.72,
-          "repo": {
-            "name": "redis-quicklist-animation",
-            "url": "https://github.com/fuck-redis/redis-quicklist-animation",
-            "isPublic": true,
-            "pagesUrl": "https://fuck-redis.github.io/redis-quicklist-animation/"
-          },
-          "hasAnimation": true
+          "description": "QuickList 是 Redis 3.2 引入的混合数据结构，结合双向链表和 ZipList 的优势。每个节点是一个 ZipList，多个节点组成双向链表。头尾操作 O(1)，内存紧凑，支持 LZF 压缩。是 Redis List 类型的默认底层实现（Redis 7.0 完全使用 QuickList）。",
+          "keyPoints": [
+            "混合结构 - 双向链表 + ZipList，兼顾性能和内存",
+            "O(1) 头尾操作 - LPUSH/RPUSH/LPOP/RPOP 保持高性能",
+            "fill 参数 - 控制每个节点大小（负数=字节大小，正数=元素数量），平衡性能和内存",
+            "compress 参数 - 从两端开始不压缩的节点数，中间节点 LZF 压缩节省 30-70% 内存",
+            "节点分裂 - 当节点满了时分拆为两个节点",
+            "避免连锁更新 - 通过控制节点大小避免 ZipList 的连锁更新问题"
+          ],
+          "operations": [
+            "LPUSH/RPUSH - 头尾插入 O(1)",
+            "LPOP/RPOP - 头尾弹出 O(1)",
+            "LINDEX/LRANGE - 随机访问 O(n)",
+            "LINSERT - 中间插入 O(n)",
+            "LTRIM - 定期清理 O(1)"
+          ],
+          "useCases": [
+            "消息队列 - RPUSH + LPOP，高性能队列",
+            "时间线/Feed - LPUSH + LTRIM，定期清理旧数据",
+            "最新评论 - 分页展示，定期截断",
+            "用户浏览历史 - LPUSH + LTRIM 保持最近N条"
+          ],
+          "contentSections": [
+            {
+              "title": "QuickList 设计哲学",
+              "content": "结合双向链表的 O(1) 头尾操作和 ZipList 的内存紧凑性。每个节点是 ZipList，通过 fill 和 compress 参数平衡性能和内存。"
+            },
+            {
+              "title": "LZF 压缩",
+              "content": "中间节点可进行 LZF 压缩，节省 30-70% 内存。compress 参数控制从两端开始不压缩的节点数，平衡 CPU 消耗和内存节省。"
+            }
+          ]
         },
         {
-          "difficulty": "EASY",
           "id": 5,
-          "paidOnly": false,
           "questionFrontendId": "intset",
-          "status": "TO_DO",
           "title": "Intset",
-          "titleSlug": "intset",
           "translatedTitle": "Intset 整数集合",
+          "titleSlug": "intset",
+          "difficulty": "EASY",
+          "paidOnly": false,
+          "status": "TO_DO",
+          "acRate": 0.70,
+          "frequency": null,
+          "hasAnimation": true,
+          "category": "集合",
+          "repo": {
+            "name": "redis-intset-animation",
+            "url": "https://github.com/fuck-redis/redis-intset-animation",
+            "isPublic": true,
+            "pagesUrl": "https://fuck-redis.github.io/redis-intset-animation/"
+          },
           "topicTags": [
             {
               "name": "Set",
@@ -137,25 +281,58 @@
               "nameTranslated": "整数"
             }
           ],
-          "category": "集合",
-          "acRate": 0.70,
-          "repo": {
-            "name": "redis-intset-animation",
-            "url": "https://github.com/fuck-redis/redis-intset-animation",
-            "isPublic": true,
-            "pagesUrl": "https://fuck-redis.github.io/redis-intset-animation/"
-          },
-          "hasAnimation": true
+          "description": "IntSet（整数集合）是 Redis 用于存储整数类型 Set 的底层数据结构。是一个有序的、紧凑的整数数组，支持动态编码（INT16/INT32/INT64），根据数值大小自动选择最小的编码类型，最大化内存效率。元素按升序排列，支持二分查找 O(log n)。",
+          "keyPoints": [
+            "动态编码 - 自动选择 INT16(2B)/INT32(4B)/INT64(8B)，最大化内存效率",
+            "有序存储 - 元素升序排列，支持二分查找 O(log n)",
+            "紧凑布局 - 连续内存，无额外指针开销，节省约 90% 内存",
+            "编码升级 - 单向升级，当值超出当前范围时自动升级到更大编码",
+            "编码不可降级 - 删除大值后编码不会降级，这是 Redis 的设计权衡",
+            "查找 O(log n) - 二分查找，n=512 时最多 9 次比较"
+          ],
+          "operations": [
+            "SADD - 插入 O(n)，可能触发扩容和编码升级",
+            "SISMEMBER - 查找 O(log n)，二分查找",
+            "SREM - 删除 O(n)，需要移动后续元素",
+            "SCARD - 获取元素数量 O(1)",
+            "SMEMBERS - 获取所有元素 O(n)"
+          ],
+          "useCases": [
+            "存储用户ID集合 - 如在线用户、粉丝列表",
+            "标签ID存储 - 商品标签、白名单/黑名单",
+            "记录用户行为事件ID - 如已读文章ID列表",
+            "小型配置集合 - 读多写少的整数集合"
+          ],
+          "contentSections": [
+            {
+              "title": "IntSet 的内存优化",
+              "content": "通过动态编码，IntSet 可以用最小的空间存储整数。INT16 只需 2 字节，INT32 需 4 字节，INT64 需 8 字节。相比普通链表可节省约 90% 内存。"
+            },
+            {
+              "title": "编码升级机制",
+              "content": "当插入的整数超出当前编码范围时，IntSet 会自动升级到更大的编码类型。这是单向的——升级后不会降级，即使删除了大值。这是 Redis 的设计权衡，以简化实现。"
+            }
+          ]
         },
         {
-          "difficulty": "MEDIUM",
           "id": 6,
-          "paidOnly": false,
           "questionFrontendId": "skiplist",
-          "status": "TO_DO",
           "title": "SkipList",
-          "titleSlug": "skiplist",
           "translatedTitle": "SkipList 跳跃表",
+          "titleSlug": "skiplist",
+          "difficulty": "MEDIUM",
+          "paidOnly": false,
+          "status": "TO_DO",
+          "acRate": 0.65,
+          "frequency": null,
+          "hasAnimation": false,
+          "category": "有序集合",
+          "repo": {
+            "name": "redis-skiplist-animation",
+            "url": "https://github.com/fuck-redis/redis-skiplist-animation",
+            "isPublic": false,
+            "pagesUrl": null
+          },
           "topicTags": [
             {
               "name": "Sorted Set",
@@ -168,25 +345,52 @@
               "nameTranslated": "跳跃表"
             }
           ],
-          "category": "有序集合",
-          "acRate": 0.65,
-          "repo": {
-            "name": "redis-skiplist-animation",
-            "url": "https://github.com/fuck-redis/redis-skiplist-animation",
-            "isPublic": false,
-            "pagesUrl": null
-          },
-          "hasAnimation": false
+          "description": "SkipList（跳跃表）是 Redis 有序集合（ZSET）的底层实现之一。通过多层索引实现 O(log n) 查找，同时支持有序遍历。Redis 还使用 dict 和 ziplist 作为 ZSET 的底层实现，根据元素数量动态选择。",
+          "keyPoints": [
+            "多层索引结构 - 第0层是完整有序链表，上层是快速通道",
+            "O(log n) 查找 - 从高层向低层跳跃式搜索",
+            "有序遍历 - 从第0层按序访问元素",
+            "随机层高 - 抛硬币决定新节点的层高，期望 O(log n)",
+            "空间换时间 - 多层索引占用额外空间，但大幅提升查询性能"
+          ],
+          "operations": [
+            "ZADD - 插入/更新 O(log n)",
+            "ZRANGE - 范围查询 O(log n + k)",
+            "ZRANK/ZREVRANK - 获取排名 O(log n)",
+            "ZSCORE - 获取分数 O(1)"
+          ],
+          "useCases": [
+            "排行榜 - ZADD + ZREVRANGE 实现排名",
+            "延时队列 - ZADD + ZRANGEBYSCORE 实现时间排序",
+            "IP 黑名单按过期时间排序",
+            "用户分数/等级系统"
+          ],
+          "contentSections": [
+            {
+              "title": "跳跃表原理",
+              "content": "想象你在看一本很厚的书，书的开头有目录帮助你快速定位章节。跳跃表就是这种思想：高层索引帮助快速定位，底层是完整链表用于有序遍历。"
+            }
+          ]
         },
         {
-          "difficulty": "MEDIUM",
           "id": 7,
-          "paidOnly": false,
           "questionFrontendId": "ziplist-sorted-set",
-          "status": "TO_DO",
           "title": "Ziplist for Sorted Set",
-          "titleSlug": "ziplist-sorted-set",
           "translatedTitle": "有序集合之 Ziplist",
+          "titleSlug": "ziplist-sorted-set",
+          "difficulty": "MEDIUM",
+          "paidOnly": false,
+          "status": "TO_DO",
+          "acRate": 0.68,
+          "frequency": null,
+          "hasAnimation": true,
+          "category": "有序集合",
+          "repo": {
+            "name": "redis-ziplist-animation",
+            "url": "https://github.com/fuck-redis/redis-ziplist-animation",
+            "isPublic": true,
+            "pagesUrl": "https://fuck-redis.github.io/redis-ziplist-animation/"
+          },
           "topicTags": [
             {
               "name": "Sorted Set",
@@ -199,25 +403,51 @@
               "nameTranslated": "压缩"
             }
           ],
-          "category": "有序集合",
-          "acRate": 0.68,
-          "repo": {
-            "name": "redis-ziplist-animation",
-            "url": "https://github.com/fuck-redis/redis-ziplist-animation",
-            "isPublic": true,
-            "pagesUrl": "https://fuck-redis.github.io/redis-ziplist-animation/"
-          },
-          "hasAnimation": true
+          "description": "ZSET（有序集合）可以使用 ZipList 作为底层实现。当元素数量较少（默认不超过 128 个）且每个元素较小时，Redis 使用 ZipList 存储有序集合，节省内存。每个 entry 包含 member 和 score，score 在前用于排序。",
+          "keyPoints": [
+            "双元素结构 - 每个 entry 存储 score + member",
+            "score 在前 - ZipList 按 score 排序，member 跟随",
+            "适用条件 - 元素数量 ≤ zset-max-ziplist-entries (默认 128)",
+            "元素大小限制 - 每个元素 ≤ zset-max-ziplist-value (默认 64 字节)",
+            "超过阈值自动转换 - 从 ZipList 转换为 SkipList + Dict"
+          ],
+          "operations": [
+            "ZADD - 添加元素 O(n)",
+            "ZRANGE - 范围查询 O(n)",
+            "ZSCORE - 获取分数 O(n)",
+            "ZCOUNT - 范围计数 O(n)"
+          ],
+          "useCases": [
+            "小型排行榜 - 少量用户的分数排名",
+            "标签权重存储 - 如热门标签及其权重",
+            "简单评分系统 - 元素少、查询不频繁的场景"
+          ],
+          "contentSections": [
+            {
+              "title": "ZSET 编码选择",
+              "content": "Redis 根据 zset-max-ziplist-entries 和 zset-max-ziplist-value 两个配置决定是否使用 ZipList。超过任一阈值则使用 SkipList + Dict 的组合结构。"
+            }
+          ]
         },
         {
-          "difficulty": "EASY",
           "id": 8,
-          "paidOnly": false,
           "questionFrontendId": "embstr",
-          "status": "TO_DO",
           "title": "Embstr",
-          "titleSlug": "embstr",
           "translatedTitle": "Embstr 短字符串",
+          "titleSlug": "embstr",
+          "difficulty": "EASY",
+          "paidOnly": false,
+          "status": "TO_DO",
+          "acRate": 0.78,
+          "frequency": null,
+          "hasAnimation": true,
+          "category": "字符串",
+          "repo": {
+            "name": "redis-sds-animation",
+            "url": "https://github.com/fuck-redis/redis-sds-animation",
+            "isPublic": true,
+            "pagesUrl": "https://fuck-redis.github.io/redis-sds-animation/"
+          },
           "topicTags": [
             {
               "name": "String",
@@ -230,25 +460,51 @@
               "nameTranslated": "内存"
             }
           ],
-          "category": "字符串",
-          "acRate": 0.78,
-          "repo": {
-            "name": "redis-sds-animation",
-            "url": "https://github.com/fuck-redis/redis-sds-animation",
-            "isPublic": true,
-            "pagesUrl": "https://fuck-redis.github.io/redis-sds-animation/"
-          },
-          "hasAnimation": true
+          "description": "Embstr 是 Redis 用于存储短字符串的优化编码方式。当字符串长度 ≤ 44 字节时，Redis 将 redisObject 和 SDS header 分配在同一块连续内存中，减少内存分配次数和提升缓存命中率。",
+          "keyPoints": [
+            "连续内存 - redisObject + SDS header 在一起，只需一次内存分配",
+            "长度限制 - ≤ 44 字节（Redis 3.2 之前是 39 字节）",
+            "只读操作 - 修改时会转换为 SDS，需要重新分配内存",
+            "缓存友好 - 减少内存碎片，提高 CPU 缓存命中率",
+            "短字符串首选 - 小于 44 字节的字符串首选 embstr"
+          ],
+          "operations": [
+            "SET - 短字符串自动使用 embstr",
+            "APPEND - 超过 44 字节自动转为 SDS",
+            "STRLEN - 获取长度 O(1)"
+          ],
+          "useCases": [
+            "短键名 - user:id:100",
+            "配置值 - feature:flag:true",
+            "计数器 - page:views:12345",
+            "JSON 短字符串 - 小的 JSON 数据"
+          ],
+          "contentSections": [
+            {
+              "title": "embstr vs raw SDS",
+              "content": "embstr 将 redisObject 和 SDS 头放在连续内存，减少内存分配。但 embstr 是只读的，一旦修改就需要转为 raw SDS 并重新分配内存。"
+            }
+          ]
         },
         {
-          "difficulty": "HARD",
           "id": 9,
-          "paidOnly": false,
           "questionFrontendId": "redis-object",
-          "status": "TO_DO",
           "title": "Redis Object",
-          "titleSlug": "redis-object",
           "translatedTitle": "Redis Object 对象结构",
+          "titleSlug": "redis-object",
+          "difficulty": "HARD",
+          "paidOnly": false,
+          "status": "TO_DO",
+          "acRate": 0.55,
+          "frequency": null,
+          "hasAnimation": false,
+          "category": "对象",
+          "repo": {
+            "name": "redis-object-animation",
+            "url": "https://github.com/fuck-redis/redis-object-animation",
+            "isPublic": false,
+            "pagesUrl": null
+          },
           "topicTags": [
             {
               "name": "Object",
@@ -261,25 +517,53 @@
               "nameTranslated": "类型"
             }
           ],
-          "category": "对象",
-          "acRate": 0.55,
+          "description": "Redis Object 是 Redis 内部对所有值的封装结构。每个键值对的 value 都是一个 redisObject，包含 type（类型）、encoding（编码）、ptr（数据指针）等字段。通过 encoding 字段，Redis 同一类型可以用不同底层数据结构实现。",
+          "keyPoints": [
+            "type 字段 - STRING/LIST/SET/ZSET/HASH 等类型",
+            "encoding 字段 - 底层数据结构：int/embstr/raw/ziplist/quicklist/skiplist 等",
+            "ptr 指针 - 指向实际数据结构的指针",
+            "lru 字段 - 最近访问时间，用于内存淘汰",
+            "refcount - 引用计数，用于对象共享和内存管理",
+            "OBJECT ENCODING - 查看对象的编码方式"
+          ],
+          "operations": [
+            "TYPE - 查看对象类型",
+            "OBJECT ENCODING - 查看对象编码",
+            "OBJECT REFCOUNT - 查看引用计数",
+            "OBJECT IDLETIME - 查看空闲时间"
+          ],
+          "useCases": [
+            "理解 Redis 内存占用 - 不同编码占用内存不同",
+            "优化内存使用 - 选择更紧凑的编码",
+            "内存淘汰策略 - LRU/LFU 基于 lru 字段",
+            "对象共享 - 短字符串的 refcount > 1"
+          ],
+          "contentSections": [
+            {
+              "title": "Redis Object 结构",
+              "content": "redisObject 是 Redis 内部的核心结构，通过 type 区分类型，encoding 选择底层实现。比如 STRING 类型可以是 int/embstr/raw，LIST 可以是 ziplist/quicklist/linkedlist。"
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "questionFrontendId": "hyperloglog",
+          "title": "HyperLogLog",
+          "translatedTitle": "HyperLogLog 基数统计",
+          "titleSlug": "hyperloglog",
+          "difficulty": "MEDIUM",
+          "paidOnly": false,
+          "status": "TO_DO",
+          "acRate": 0.60,
+          "frequency": null,
+          "hasAnimation": false,
+          "category": "高级数据结构",
           "repo": {
-            "name": "redis-object-animation",
-            "url": "https://github.com/fuck-redis/redis-object-animation",
+            "name": "redis-hyperloglog-animation",
+            "url": "https://github.com/fuck-redis/redis-hyperloglog-animation",
             "isPublic": false,
             "pagesUrl": null
           },
-          "hasAnimation": false
-        },
-        {
-          "difficulty": "MEDIUM",
-          "id": 10,
-          "paidOnly": false,
-          "questionFrontendId": "hyperloglog",
-          "status": "TO_DO",
-          "title": "HyperLogLog",
-          "titleSlug": "hyperloglog",
-          "translatedTitle": "HyperLogLog 基数统计",
           "topicTags": [
             {
               "name": "Bitmap",
@@ -292,25 +576,51 @@
               "nameTranslated": "概率"
             }
           ],
+          "description": "HyperLogLog 是 Redis 3.8 引入的概率算法数据结构，用于基数统计（估算集合中不重复元素数量）。空间效率极高，每个 HyperLogLog 只需 12KB 内存，却可以估算 2^64 个元素的基数，标准误差约 0.81%。",
+          "keyPoints": [
+            "概率算法 - 基于伯努利试验的概率估计",
+            "12KB 固定内存 - 无论统计多少元素，内存占用恒定",
+            "0.81% 标准误差 - 牺牲精确度换取空间效率",
+            "PFADD/PFCOUNT/PFMERGE - 三个核心命令",
+            "需要足够多元素才能修正误差 - 元素越多越准确"
+          ],
+          "operations": [
+            "PFADD - 添加元素 O(1)",
+            "PFCOUNT - 获取基数估计值 O(n)",
+            "PFMERGE - 合并多个 HyperLogLog O(n)"
+          ],
+          "useCases": [
+            "UV 统计 - 网站独立访客数量",
+            "DAU/WAU/MAU - 日/月活用户统计",
+            "商品浏览量 - 去重后的浏览量",
+            "独立 IP 数量统计"
+          ],
+          "contentSections": [
+            {
+              "title": "HyperLogLog 原理",
+              "content": "基于哈希和比特位观察。核心思想：观察哈希值中第一个 0 的位置，位置越大说明基数越大。通过分桶平滑误差，14.4KB 内存分成 2^14 个桶。"
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "questionFrontendId": "bitmap",
+          "title": "Bitmap",
+          "translatedTitle": "Bitmap 位图",
+          "titleSlug": "bitmap",
+          "difficulty": "MEDIUM",
+          "paidOnly": false,
+          "status": "TO_DO",
+          "acRate": 0.70,
+          "frequency": null,
+          "hasAnimation": false,
           "category": "高级数据结构",
-          "acRate": 0.60,
           "repo": {
-            "name": "redis-hyperloglog-animation",
-            "url": "https://github.com/fuck-redis/redis-hyperloglog-animation",
+            "name": "redis-bitmap-animation",
+            "url": "https://github.com/fuck-redis/redis-bitmap-animation",
             "isPublic": false,
             "pagesUrl": null
           },
-          "hasAnimation": false
-        },
-        {
-          "difficulty": "MEDIUM",
-          "id": 11,
-          "paidOnly": false,
-          "questionFrontendId": "bitmap",
-          "status": "TO_DO",
-          "title": "Bitmap",
-          "titleSlug": "bitmap",
-          "translatedTitle": "Bitmap 位图",
           "topicTags": [
             {
               "name": "Bitmap",
@@ -323,25 +633,53 @@
               "nameTranslated": "字符串"
             }
           ],
+          "description": "Bitmap（位图）不是独立数据类型，而是基于 String 类型的位操作。通过 BITCOUNT/BITOP/BITPOS 等命令，可以高效处理大量布尔状态。1 bit 存储一个状态，内存效率极高。适合用户签到、状态追踪等场景。",
+          "keyPoints": [
+            "基于 String - 实际上是字节数组，支持位操作",
+            "1 bit 一个状态 - 存储效率极高，1GB 可存 80 亿个状态",
+            "BITCOUNT - 统计范围内 1 的个数 O(n)",
+            "BITOP - 位运算 AND/OR/XOR/NOT O(n)",
+            "BITPOS - 查找第一个 0/1 的位置 O(n)"
+          ],
+          "operations": [
+            "SETBIT - 设置某位的值 O(1)",
+            "GETBIT - 获取某位的值 O(1)",
+            "BITCOUNT - 统计 1 的数量 O(n)",
+            "BITOP - 位运算 O(n)",
+            "BITPOS - 查找位位置 O(n)"
+          ],
+          "useCases": [
+            "用户每日签到 - 365 天只需 365/8 ≈ 46 字节",
+            "用户活跃统计 - 每日活跃用户 bitmap",
+            "在线状态追踪 - 用户是否在线",
+            "权限控制 - 用户权限位掩码"
+          ],
+          "contentSections": [
+            {
+              "title": "Bitmap 优势",
+              "content": "传统方式存储 1000 万用户的在线状态需要 1000 万个布尔值（10MB），而 Bitmap 只需 1000 万 bit（1.25MB），节省 8 倍空间。"
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "questionFrontendId": "geospatial",
+          "title": "Geospatial",
+          "translatedTitle": "Geospatial 地理空间",
+          "titleSlug": "geospatial",
+          "difficulty": "MEDIUM",
+          "paidOnly": false,
+          "status": "TO_DO",
+          "acRate": 0.65,
+          "frequency": null,
+          "hasAnimation": false,
           "category": "高级数据结构",
-          "acRate": 0.70,
           "repo": {
-            "name": "redis-bitmap-animation",
-            "url": "https://github.com/fuck-redis/redis-bitmap-animation",
+            "name": "redis-geospatial-animation",
+            "url": "https://github.com/fuck-redis/redis-geospatial-animation",
             "isPublic": false,
             "pagesUrl": null
           },
-          "hasAnimation": false
-        },
-        {
-          "difficulty": "MEDIUM",
-          "id": 12,
-          "paidOnly": false,
-          "questionFrontendId": "geospatial",
-          "status": "TO_DO",
-          "title": "Geospatial",
-          "titleSlug": "geospatial",
-          "translatedTitle": "Geospatial 地理空间",
           "topicTags": [
             {
               "name": "Sorted Set",
@@ -354,25 +692,54 @@
               "nameTranslated": "地理"
             }
           ],
+          "description": "Geospatial（地理空间）是 Redis 3.2 引入的功能，用于存储地理位置坐标并进行范围查询。底层使用有序集合（ZSET），将地球坐标转换为 geohash 编码后存储。支持添加坐标、计算距离、获取附近位置等功能。",
+          "keyPoints": [
+            "底层 ZSET - 存储 geohash 编码和 member",
+            "GEOADD - 添加位置 O(log n)",
+            "GEODIST - 计算两点距离 O(log n)",
+            "GEORADIUS - 附近位置查询 O(n log m)",
+            "地球精度限制 - 经度 ±180°，纬度 ±85°",
+            "geohash 编码 - 将二维坐标编码为一维分数"
+          ],
+          "operations": [
+            "GEOADD - 添加地理位置 O(log n)",
+            "GEOPOS - 获取位置坐标 O(log n)",
+            "GEODIST - 计算距离 O(log n)",
+            "GEORADIUS/GEOSEARCH - 附近位置查询 O(n log m)",
+            "GEOHASH - 获取 geohash 编码 O(log n)"
+          ],
+          "useCases": [
+            "附近的人 - 社交应用查找附近用户",
+            "商家搜索 - 查找附近餐厅、酒店",
+            "骑手/司机分配 - 滴滴、美团调度系统",
+            "物流追踪 - 包裹位置监控"
+          ],
+          "contentSections": [
+            {
+              "title": "Geospatial 原理",
+              "content": "GEOADD 将经纬度转换为 geohash 编码，存储到 ZSET 中。geohash 编码相近的点实际距离也相近，这样可以用 ZRANGEBYSCORE 进行范围查询。"
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "questionFrontendId": "stream",
+          "title": "Stream",
+          "translatedTitle": "Stream 流",
+          "titleSlug": "stream",
+          "difficulty": "MEDIUM",
+          "paidOnly": false,
+          "status": "TO_DO",
+          "acRate": 0.50,
+          "frequency": null,
+          "hasAnimation": false,
           "category": "高级数据结构",
-          "acRate": 0.65,
           "repo": {
-            "name": "redis-geospatial-animation",
-            "url": "https://github.com/fuck-redis/redis-geospatial-animation",
+            "name": "redis-stream-animation",
+            "url": "https://github.com/fuck-redis/redis-stream-animation",
             "isPublic": false,
             "pagesUrl": null
           },
-          "hasAnimation": false
-        },
-        {
-          "difficulty": "MEDIUM",
-          "id": 13,
-          "paidOnly": false,
-          "questionFrontendId": "stream",
-          "status": "TO_DO",
-          "title": "Stream",
-          "titleSlug": "stream",
-          "translatedTitle": "Stream 流",
           "topicTags": [
             {
               "name": "Stream",
@@ -385,25 +752,54 @@
               "nameTranslated": "基数树"
             }
           ],
+          "description": "Stream（流）是 Redis 5.0 引入的数据结构，提供了消息队列功能。底层使用 Radix Tree（基数树）存储消息，支持按 ID 范围查询、消费者组、消息确认等特性。是 Redis 实现消息队列 / 事件流的主力数据结构。",
+          "keyPoints": [
+            "底层 Radix Tree - 高效存储和检索消息 ID",
+            "消息 ID - 自动生成或手动指定，格式为 timestamp-sequence",
+            "消费者组 - 支持多个消费者分组消费消息",
+            "消息确认 - XACK 确认已处理，防止消息丢失",
+            "XREAD/XREADGROUP - 阻塞式读取消息",
+            "持久化支持 - 支持 AOF 和 RDB"
+          ],
+          "operations": [
+            "XADD - 添加消息 O(1)",
+            "XREAD - 读取消息 O(n)",
+            "XREADGROUP - 消费者组读取 O(n)",
+            "XRANGE - 范围查询 O(n)",
+            "XACK - 确认消息 O(1)"
+          ],
+          "useCases": [
+            "消息队列 - 异步任务处理",
+            "实时事件流 - 日志、监控数据流",
+            "聊天系统 - 消息分发",
+            "数据管道 - ETL 数据处理"
+          ],
+          "contentSections": [
+            {
+              "title": "Stream vs List",
+              "content": "List 作为消息队列缺少消息 ID、消费者组、消息确认等特性。Stream 提供了完整的消息队列功能，是 Redis 实现 MQ 的现代方案。"
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "questionFrontendId": "rax",
+          "title": "Rax (Radix Tree)",
+          "translatedTitle": "Rax 基数树",
+          "titleSlug": "rax-radix-tree",
+          "difficulty": "EASY",
+          "paidOnly": false,
+          "status": "TO_DO",
+          "acRate": 0.55,
+          "frequency": null,
+          "hasAnimation": false,
           "category": "高级数据结构",
-          "acRate": 0.50,
           "repo": {
-            "name": "redis-stream-animation",
-            "url": "https://github.com/fuck-redis/redis-stream-animation",
+            "name": "redis-rax-animation",
+            "url": "https://github.com/fuck-redis/redis-rax-animation",
             "isPublic": false,
             "pagesUrl": null
           },
-          "hasAnimation": false
-        },
-        {
-          "difficulty": "EASY",
-          "id": 14,
-          "paidOnly": false,
-          "questionFrontendId": "rax",
-          "status": "TO_DO",
-          "title": "Rax (Radix Tree)",
-          "titleSlug": "rax-radix-tree",
-          "translatedTitle": "Rax 基数树",
           "topicTags": [
             {
               "name": "Radix Tree",
@@ -416,15 +812,32 @@
               "nameTranslated": "树"
             }
           ],
-          "category": "高级数据结构",
-          "acRate": 0.55,
-          "repo": {
-            "name": "redis-rax-animation",
-            "url": "https://github.com/fuck-redis/redis-rax-animation",
-            "isPublic": false,
-            "pagesUrl": null
-          },
-          "hasAnimation": false
+          "description": "Rax（基数树）是 Redis 内部使用的数据结构，用于高效存储和查找字符串键。前缀树的一种变体，通过压缩连续的单子节点减少空间占用。Redis Stream 的消息 ID 就存储在 Rax 中。",
+          "keyPoints": [
+            "压缩前缀树 - 合并连续单子节点，减少空间",
+            "O(k) 查找 - k 为键长度，与数据量无关",
+            "字典序遍历 - 按字典顺序遍历键",
+            "内存效率 - 共享前缀的键越多，空间节省越明显",
+            "支持迭代器 - 可以按字典序遍历所有键"
+          ],
+          "operations": [
+            "raxInsert - 插入键 O(k)",
+            "raxFind - 查找键 O(k)",
+            "raxRemove - 删除键 O(k)",
+            "raxIter - 字典序遍历 O(n)"
+          ],
+          "useCases": [
+            "Stream 消息 ID 存储 - XREADGROUP 底层",
+            "路由表存储 - API 路由匹配",
+            "前缀匹配查询 - 搜索建议",
+            "IP 路由表存储"
+          ],
+          "contentSections": [
+            {
+              "title": "Rax vs Trie",
+              "content": "传统 Trie 每个字符一个节点，空间开销大。Rax 通过压缩相同前缀的节点，共享路径，大幅减少内存占用。"
+            }
+          ]
         }
       ]
     }
